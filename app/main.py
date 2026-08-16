@@ -1,4 +1,6 @@
-from app.knight import apply_battle_stats
+from typing import Dict
+
+from app.knight import Knight, apply_battle_stats
 from app.battle import fight
 
 KNIGHTS = {
@@ -50,7 +52,7 @@ KNIGHTS = {
 }
 
 
-def battle(knights_config):
+def battle(knights_config: Dict[str, Knight]) -> Dict[str, int]:
     knights = {
         key: apply_battle_stats(dict(config))
         for key, config in knights_config.items()
