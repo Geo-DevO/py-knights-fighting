@@ -58,4 +58,3 @@ class Knight:
     def take_damage(self, damage: int) -> int:
         self.hp = max(0, self.hp - damage)
         return self.hp
-
