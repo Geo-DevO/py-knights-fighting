@@ -1,4 +1,9 @@
-def fight(knight_a, knight_b):
+from typing import Tuple
+
+from app.knight import Knight
+
+
+def fight(knight_a: Knight, knight_b: Knight) -> Tuple[Knight, Knight]:
     damage_to_a = knight_b["power"] - knight_a["protection"]
     damage_to_b = knight_a["power"] - knight_b["protection"]
 
