@@ -1,6 +1,8 @@
-from typing import Dict
+"""Entry point: knight roster and the battle() function under test."""
 
-from app.knight import Knight, apply_battle_stats
+from typing import Any, Dict
+
+from app.knight import Knight
 from app.battle import fight
 
 KNIGHTS = {
@@ -52,16 +54,17 @@ KNIGHTS = {
 }
 
 
-def battle(knights_config: Dict[str, Knight]) -> Dict[str, int]:
+def battle(knights_config: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
+    """Run the tournament: Lancelot vs Mordred, Arthur vs Red Knight."""
     knights = {
-        key: apply_battle_stats(dict(config))
+        key: Knight.from_config(config).apply_battle_stats()
         for key, config in knights_config.items()
     }
 
     fight(knights["lancelot"], knights["mordred"])
     fight(knights["arthur"], knights["red_knight"])
 
-    return {knight["name"]: knight["hp"] for knight in knights.values()}
+    return {knight.name: knight.hp for knight in knights.values()}
 
 
 if __name__ == "__main__":
