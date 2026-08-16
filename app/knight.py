@@ -1,22 +1,27 @@
-def calculate_protection(knight):
+from typing import Any, Dict
+
+Knight = Dict[str, Any]
+
+
+def calculate_protection(knight: Knight) -> int:
     return sum(piece["protection"] for piece in knight["armour"])
 
 
-def calculate_power(knight):
+def calculate_power(knight: Knight) -> int:
     power = knight["power"] + knight["weapon"]["power"]
     if knight["potion"] is not None:
         power += knight["potion"]["effect"].get("power", 0)
     return power
 
 
-def calculate_hp(knight):
+def calculate_hp(knight: Knight) -> int:
     hp = knight["hp"]
     if knight["potion"] is not None:
         hp += knight["potion"]["effect"].get("hp", 0)
     return hp
 
 
-def apply_battle_stats(knight):
+def apply_battle_stats(knight: Knight) -> Knight:
     protection = calculate_protection(knight)
     if knight["potion"] is not None:
         protection += knight["potion"]["effect"].get("protection", 0)
