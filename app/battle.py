@@ -3,11 +3,15 @@ from typing import Tuple
 from app.knight import Knight
 
 
-def fight(knight_a: Knight, knight_b: Knight) -> Tuple[Knight, Knight]:
-    damage_to_a = knight_b["power"] - knight_a["protection"]
-    damage_to_b = knight_a["power"] - knight_b["protection"]
+def calculate_damage(attacker: Knight, defender: Knight) -> int:
+    return max(0, attacker.power - defender.protection)
 
-    knight_a["hp"] = max(0, knight_a["hp"] - damage_to_a)
-    knight_b["hp"] = max(0, knight_b["hp"] - damage_to_b)
+
+def fight(knight_a: Knight, knight_b: Knight) -> Tuple[Knight, Knight]:
+    damage_to_a = calculate_damage(knight_b, knight_a)
+    damage_to_b = calculate_damage(knight_a, knight_b)
+
+    knight_a.take_damage(damage_to_a)
+    knight_b.take_damage(damage_to_b)
 
     return knight_a, knight_b
